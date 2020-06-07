@@ -56,64 +56,87 @@ export default {
     },
 
     listboxLabelComponent() {
+      const vm = this;
       return {
-        component: ListboxLabel,
-        props: {
-          id: this.labelId
+        render(h) {
+          return h(ListboxLabel, {
+            props: {
+              id: vm.labelId
+            },
+            scopedSlots: this.$scopedSlots
+          });
         }
       };
     },
 
     listboxButtonComponent() {
+      const vm = this;
       return {
-        component: ListboxButton,
-        props: {
-          id: this.buttonId,
-          labelId: this.labelId,
-          isOpen: this.isOpen
-        },
-        on: {
-          setButtonRef: this.setButtonRef,
-          toggle: this.toggle
+        render(h) {
+          return h(ListboxButton, {
+            props: {
+              id: vm.buttonId,
+              labelId: vm.labelId,
+              isOpen: vm.isOpen
+            },
+            on: {
+              setButtonRef: vm.setButtonRef,
+              toggle: vm.toggle
+            },
+            scopedSlots: this.$scopedSlots
+          });
         }
       };
     },
 
     listboxListComponent() {
+      const vm = this;
       return {
-        component: ListboxList,
-        props: {
-          labelledBy: `${this.buttonId} ${this.labelId}`,
-          typeahead: this.typeahead,
-          activeOptionId: this.activeOption?.id,
-          buttonRef: this.buttonRef,
-          items: this.items
-        },
-        on: {
-          setListRef: this.setListRef,
-          close: this.close,
-          focusPrev: this.focusPrev,
-          focusNext: this.focusNext,
-          selectActive: this.selectActive,
-          resetActive: this.resetActive,
-          type: this.type
+        render(h) {
+          return h(ListboxList, {
+            props: {
+              labelledBy: `${vm.buttonId} ${vm.labelId}`,
+              typeahead: vm.typeahead,
+              activeOptionId: vm.activeOption?.id,
+              buttonRef: vm.buttonRef,
+              items: vm.items
+            },
+            on: {
+              setListRef: vm.setListRef,
+              close: vm.close,
+              focusPrev: vm.focusPrev,
+              focusNext: vm.focusNext,
+              selectActive: vm.selectActive,
+              resetActive: vm.resetActive,
+              type: vm.type
+            },
+            scopedSlots: this.$scopedSlots
+          });
         }
       };
     },
 
     listboxOptionComponent() {
+      const vm = this;
       return {
-        component: ListboxOption,
         props: {
-          activeValue: this.activeValue,
-          selectedValue: this.value,
-          value: null // passed directly
+          value: String
         },
-        on: {
-          registerOption: this.registerOption,
-          unregisterOption: this.unregisterOption,
-          select: this.selectOption,
-          setActiveValue: this.setActiveValue
+        render(h) {
+          return h(ListboxOption, {
+            props: {
+              activeValue: vm.activeValue,
+              selectedValue: vm.value,
+              value: this.$props.value
+            },
+            on: {
+              registerOption: vm.registerOption,
+              unregisterOption: vm.unregisterOption,
+              select: vm.selectOption,
+              setActiveValue: vm.setActiveValue
+            },
+            scopedSlots: this.$scopedSlots
+          });
         }
       };
     }

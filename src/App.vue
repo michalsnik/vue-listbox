@@ -4,21 +4,17 @@
     :items="wrestlers"
     v-slot="{ isOpen, components }"
   >
-    <contextual-component :use="components.label" class="sr-only">
+    <component :is="components.label" class="sr-only">
       Select a wrestler
-    </contextual-component>
+    </component>
 
-    <contextual-component :use="components.button" class="rounded p-3 border">
+    <component :is="components.button" class="rounded p-3 border">
       {{ selectedWrestler }}
-    </contextual-component>
+    </component>
 
-    <contextual-component
-      :use="components.list"
-      v-show="isOpen"
-      v-slot="{ item }"
-    >
-      <contextual-component
-        :use="components.option"
+    <component :is="components.list" v-show="isOpen" v-slot="{ item }">
+      <component
+        :is="components.option"
         :value="item"
         v-slot="{ isActive, isSelected }"
       >
@@ -31,8 +27,8 @@
           {{ item }}
           <img v-show="isSelected" src="@/assets/checkmark.svg" />
         </div>
-      </contextual-component>
-    </contextual-component>
+      </component>
+    </component>
   </Listbox>
 </template>
 
